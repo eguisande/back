@@ -20,7 +20,13 @@ app.use(bodyParser.json())
 
 // CNX
 
-mongoose.connection.openUri('mongodb://localhost:27017/service', (err, res) => {
+const config = {
+    autoIndex: false,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+};
+
+mongoose.connect('mongodb://localhost:27017/service', config, (err, res) => {
     if (err) throw err;
     console.log('Server corriendo \x1b[32m%s\x1b[0m', 'Online');
 });
