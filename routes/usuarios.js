@@ -1,16 +1,18 @@
-var express = require('express');
-var bcrypt = require('bcryptjs');
-var Usuario = require('../models/usuario');
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const Usuario = require('../models/usuario');
+const { authToken, adminRole } = require('../middlewares/auth');
 
 
 
-var app = express();
+
+const app = express();
 
 // ===================================================
 // Obtener usuario
 // ===================================================
 
-app.get('/', (req, res, next) => {
+app.get('/usuarios', authToken, (req, res, next) => {
 
     Usuario.find({}, (err, data) => {
 
@@ -38,7 +40,7 @@ app.get('/', (req, res, next) => {
 // ===================================================
 
 
-app.post('/', (req, res) => {
+app.post('/usuarios', [authToken, adminRole], (req, res) => {
 
     var body = req.body;
 
@@ -77,7 +79,7 @@ app.post('/', (req, res) => {
 // ===================================================
 
 
-app.put('/:id', (req, res) => {
+app.put('/usuarios/:id', (req, res) => {
 
     var id = req.params.id;
     var body = req.body;
@@ -127,7 +129,7 @@ app.put('/:id', (req, res) => {
 });
 
 
-app.delete('/:id', (req, res) => {
+app.delete('/usuario/:id', (req, res) => {
     var id = req.params.id;
 
 

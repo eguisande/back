@@ -6,20 +6,25 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
-// Import Routes
 
-var userRoute = require("./routes/usuarios");
 
 // Inicializar variables
 var app = express();
 
-// Body Parser
+
+
+
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
-app.use(bodyParser.json())
+
+app.use(bodyParser.json());
+
+// Import Routes Index
+
+app.use(require('./routes/index'));
 
 // CNX
 
@@ -34,8 +39,6 @@ mongoose.connect(process.env.URLDB, config, (err, res) => {
     console.log('Server corriendo \x1b[32m%s\x1b[0m', 'Online');
 });
 
-
-app.use('/usuarios', userRoute);
 
 // Listen express
 
